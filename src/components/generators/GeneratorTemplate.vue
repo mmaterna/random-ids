@@ -1,0 +1,109 @@
+<template>
+  <div>
+    <v-card>
+
+      <v-container>
+        <v-row text-center wrap>
+
+          <v-col cols="12" sm="8">
+
+            <v-row dense>
+              <v-col>
+                <slot name="generatorName">
+                </slot>
+              </v-col>
+              <v-col>
+                <slot name="settingsButton"></slot>
+              </v-col>
+            </v-row>
+
+            <v-row dense>
+              <v-col cols="12" sm="5">
+                <v-btn x-large @click="generate" color="primary">Generuj</v-btn>
+              </v-col>
+              <v-col cols="12" sm="5" style="text-align: end;">
+                <slot name="currentSettings"></slot>
+              </v-col>
+            </v-row>
+            <v-row>
+              <v-col cols="12" sm="7" @click="clipboardCopy(generatedValue)">
+                <v-alert type="success">
+                  {{ generatedValue }}
+                </v-alert>
+              </v-col>
+            </v-row>
+          </v-col>
+
+          <v-col class="d-none d-sm-flex" sm="4">
+            <PreviousValues :previousValues="previousValues" @clicked="clipboardCopy"/>
+          </v-col>
+        </v-row>
+      </v-container>
+
+    </v-card>
+
+    <v-snackbar v-model="snackbar" top :timeout="snackbarTimeout">
+      Skopiowano do schowka...
+    </v-snackbar>
+
+  </div>
+
+</template>
+
+<script>
+import PreviousValues from '@/components/common/PreviousValues.vue'
+import clipboard from '@/services/clipboard.js'
+
+export default {
+  name: 'GeneratorTemplate',
+  components: {
+    PreviousValues,
+  },
+  props: {
+    generateNextValue: {
+      type: Function,
+      required: true,
+    }
+  },
+  data: () => ({
+    snackbar: false,
+    snackbarTimeout: 600,
+    copiedMessage: '',
+    previousValues: [],
+    generatedValue: null,
+  }),
+
+  mounted() {
+    this.nextValue();
+  },
+
+  computed: {
+  },
+
+  methods: {
+    nextValue() {
+      this.generatedValue = this.generateNextValue()
+    },
+    generate() {
+      this.previousValues.unshift(this.generatedValue)
+      this.nextValue();
+      this.clipboardCopy(this.generatedValue)
+    },
+    clipboardCopy(text) {
+      clipboard.copyToClipboard(text)
+      this.reportCopied()
+    },
+    reportCopied() {
+      this.snackbar = true
+      // this.copiedMessage = 'Skopiowano do schowka...'
+      // setTimeout(() => {
+      //   this.copiedMessage = ''
+      // }, 1000);
+    }
+  },
+
+};
+</script>
+
+<style>
+</style>
