@@ -16,8 +16,6 @@
         />
       </div>
 
-      <v-spacer></v-spacer>
-
     </v-app-bar>
 
     <v-content>

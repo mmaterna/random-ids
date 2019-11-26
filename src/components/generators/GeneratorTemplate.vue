@@ -1,13 +1,13 @@
 <template>
   <div>
-    <v-card>
+    <v-card class="generator-card">
 
       <v-container>
-        <v-row text-center wrap>
+        <v-row text-center wrap dense>
 
           <v-col cols="12" sm="8">
 
-            <v-row dense>
+            <v-row dense class="generator-header">
               <v-col>
                 <slot name="generatorName">
                 </slot>
@@ -27,7 +27,7 @@
             </v-row>
             <v-row>
               <v-col cols="12" sm="7" @click="clipboardCopy(generatedValue)">
-                <v-alert type="success">
+                <v-alert type="success" class="mb-0">
                   {{ generatedValue }}
                 </v-alert>
               </v-col>
@@ -95,10 +95,6 @@ export default {
     },
     reportCopied() {
       this.snackbar = true
-      // this.copiedMessage = 'Skopiowano do schowka...'
-      // setTimeout(() => {
-      //   this.copiedMessage = ''
-      // }, 1000);
     }
   },
 
@@ -106,4 +102,10 @@ export default {
 </script>
 
 <style>
+.generator-card {
+  min-height: 230px;
+}
+.generator-header {
+  min-height: 58px;
+}
 </style>

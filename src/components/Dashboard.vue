@@ -11,7 +11,7 @@
         v-for="generator in generators"
         v-bind:key="generator.name"
       >
-        <component v-bind:is="generator.type" style="min-height: 280px;"/>
+        <component v-bind:is="generator.type"/>
       </v-col>
     </v-row>
   </v-container>

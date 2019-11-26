@@ -5,7 +5,7 @@
         <p class="headline">{{regonType}}</p>
       </template>
       <template v-slot:settingsButton>
-        <v-switch v-model="regon14" :label="`${regonType}`"></v-switch>        
+        <v-switch v-model="regon14" :label="`${regonType}`" class="ma-0 pa-0"></v-switch>        
       </template>
     </GeneratorTemplate>    
   </div>
