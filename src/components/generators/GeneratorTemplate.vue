@@ -35,16 +35,12 @@
           </v-col>
 
           <v-col class="d-none d-sm-flex" sm="4">
-            <PreviousValues :previousValues="previousValues" @clicked="clipboardCopy"/>
+            <PreviousValues :previousValues="previousValues"/>
           </v-col>
         </v-row>
       </v-container>
 
     </v-card>
-
-    <v-snackbar v-model="snackbar" top :timeout="snackbarTimeout">
-      Skopiowano do schowka...
-    </v-snackbar>
 
   </div>
 
@@ -52,7 +48,7 @@
 
 <script>
 import PreviousValues from '@/components/common/PreviousValues.vue'
-import clipboard from '@/services/clipboard.js'
+import { EventBus } from '@/services/event-bus.js';
 
 export default {
   name: 'GeneratorTemplate',
@@ -66,9 +62,6 @@ export default {
     }
   },
   data: () => ({
-    snackbar: false,
-    snackbarTimeout: 600,
-    copiedMessage: '',
     previousValues: [],
     generatedValue: null,
   }),
@@ -85,18 +78,18 @@ export default {
     // also called from dashboard when calling all generators
     generate() {
       this.previousValues.unshift(this.generatedValue)
-      this.nextValue();
+      this.nextValue()
     },
     nextValue() {
       this.generatedValue = this.generateNextValue()
+      EventBus.$emit('generated')
+    },
+    currentValue() {
+      return this.generatedValue;
     },
     clipboardCopy(text) {
-      clipboard.copyToClipboard(text)
-      this.reportCopied()
+      EventBus.$emit('clicked', text)
     },
-    reportCopied() {
-      this.snackbar = true
-    }
   },
 
 };

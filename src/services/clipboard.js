@@ -9,10 +9,9 @@ function copyToClipboard(text) {
     document.body.appendChild(textarea);
   
     var selection = document.getSelection();
-    var range = document.createRange();
-    range.selectNode(textarea);
     selection.removeAllRanges();
-    selection.addRange(range);
+
+    textarea.select();
     document.execCommand('copy')
     selection.removeAllRanges();
   

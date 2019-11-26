@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import { EventBus } from '@/services/event-bus.js';
+
 export default {
   props: {
     previousValues: {
@@ -30,7 +32,7 @@ export default {
   },
   methods: {
     clicked(text) {
-      this.$emit('clicked', text)
+      EventBus.$emit('clicked', text)
     }
   },
   computed: {

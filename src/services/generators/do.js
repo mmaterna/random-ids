@@ -2,13 +2,19 @@ import utils from '../utils.js'
 
 export default {
     dowod,
+    
 }
 
 function dowod() {
-    var serial = utils.randomLetters(3);
-    var numbers = ('00000' + utils.rand(0, 99999).toString()).slice(-5);
-    var controlDigit = calculateControlDigit(serial, numbers);
-    return serial + controlDigit + numbers;
+    const serial = utils.randomLetters(3);
+    const numbers = ('00000' + utils.rand(0, 99999).toString()).slice(-5);
+    const controlDigit = calculateControlDigit(serial, numbers);
+    const seriaNumer = serial + controlDigit + numbers;
+    return {
+        seria: serial,
+        numer: "" + controlDigit + numbers,
+        seriaNumer: seriaNumer
+    };
 }
 
 var letterValues = {

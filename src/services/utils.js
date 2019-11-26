@@ -1,7 +1,9 @@
 export default {
     rand,
     randomLetters,
-    log
+    log,
+    funcExists,
+    defaultTemplate
 }
 
 function rand (min, max) {
@@ -19,8 +21,20 @@ function randomLetters(length) {
  }
 
 
- function log(text) {
+function log(text) {
      // eslint-disable-next-line no-console
     console.log(text)
- }
- 
+}
+
+function funcExists(functionToCheck) {
+    return functionToCheck && {}.toString.call(functionToCheck) === '[object Function]'
+}
+
+function defaultTemplate() {
+    return `Pesel: \${pesel}, 
+Dowód osobisty: \${dowod}, 
+Dowód osobisty - seria: \${dowodSeria}, 
+Dowód osobisty - numer: \${dowodNumer},
+NIP: \${nip}
+Regon: \${regon}`
+}

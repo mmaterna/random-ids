@@ -37,6 +37,9 @@ export default {
         return regonService.regon9()
       }
     },
+    substituteValue(text) {
+      return text.replace(/\$\{regon\}/g, this.$refs.commonTemplate.currentValue());
+    },
   },
 
   data: () => ({

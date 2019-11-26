@@ -146,6 +146,10 @@ export default {
         )
       return nextPesel
     },
+    substituteValue(text) {
+      return text.replace(/\$\{pesel\}/g, this.$refs.commonTemplate.currentValue());
+    },
+
     openSettingsDialog() {
       this.editSettings.birthDate = this.currentSettings.birthDate
       this.editSettings.age = this.currentSettings.age

@@ -18,10 +18,27 @@ export default {
   components: {
     GeneratorTemplate,
   },
+  data: () => ({
+    seriaNumer: "",
+    seria: "",
+    numer: "",
+  }),
   methods: {
     nextValue() {
-      return doService.dowod()
+      const result = doService.dowod()
+      this.seria = result.seria
+      this.numer = result.numer
+      this.seriaNumer = result.seriaNumer
+
+      return result.seriaNumer;
     },
+    
+    substituteValue(text) {
+      var result = text.replace(/\$\{dowod\}/g, this.seriaNumer);
+      result = result.replace(/\$\{dowodSeria\}/g, this.seria);
+      result = result.replace(/\$\{dowodNumer\}/g, this.numer);
+      return result;
+    }
   },
 
 };

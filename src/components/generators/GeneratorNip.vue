@@ -22,6 +22,11 @@ export default {
     nextValue() {
       return nipService.nip()
     },
+
+    substituteValue(text) {
+      return text.replace(/\$\{nip\}/g, this.$refs.commonTemplate.currentValue());
+    }
+
   },
 };
 </script>
