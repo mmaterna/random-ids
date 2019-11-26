@@ -23,7 +23,7 @@ export default {
       required: true
     },
     maxHeight: {
-        default: 170,
+        default: 160,
         required: false,
         type: Number,
     }
