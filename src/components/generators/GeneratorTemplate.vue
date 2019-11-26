@@ -19,7 +19,7 @@
 
             <v-row dense>
               <v-col cols="12" sm="5">
-                <v-btn x-large @click="generate" color="primary">Generuj</v-btn>
+                <v-btn x-large @click="generateAndCopyToClip" color="primary">Generuj</v-btn>
               </v-col>
               <v-col cols="12" sm="5" style="text-align: end;">
                 <slot name="currentSettings"></slot>
@@ -77,17 +77,18 @@ export default {
     this.nextValue();
   },
 
-  computed: {
-  },
-
   methods: {
-    nextValue() {
-      this.generatedValue = this.generateNextValue()
+    generateAndCopyToClip() {
+      this.generate()
+      this.clipboardCopy(this.generatedValue)
     },
+    // also called from dashboard when calling all generators
     generate() {
       this.previousValues.unshift(this.generatedValue)
       this.nextValue();
-      this.clipboardCopy(this.generatedValue)
+    },
+    nextValue() {
+      this.generatedValue = this.generateNextValue()
     },
     clipboardCopy(text) {
       clipboard.copyToClipboard(text)

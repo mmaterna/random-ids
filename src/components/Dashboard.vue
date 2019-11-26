@@ -1,8 +1,13 @@
 <template>
   <v-container>
     <v-row text-center wrap>
-      <v-col class="md-12">
+      <v-col>
         <h2>Generator danych testowych</h2>
+      </v-col>
+      <v-col style="text-align: end;">
+        <v-btn x-large @click="refreshAll" color="primary">
+          <v-icon dark title="Odśwież wszystkie">mdi-refresh</v-icon>
+        </v-btn>
       </v-col>
     </v-row>
 
@@ -11,7 +16,7 @@
         v-for="generator in generators"
         v-bind:key="generator.name"
       >
-        <component v-bind:is="generator.type"/>
+        <component v-bind:is="generator.type" ref="generator"/>
       </v-col>
     </v-row>
   </v-container>
@@ -44,6 +49,12 @@ export default {
         type: GeneratorRegon
       },
     ]
-  })
+  }),
+  methods: {
+    refreshAll() {
+      // call generate from template generator in every generator component
+      this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate());
+    }
+  }
 };
 </script>

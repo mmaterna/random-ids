@@ -1,6 +1,7 @@
 export default {
     rand,
     randomLetters,
+    log
 }
 
 function rand (min, max) {
@@ -15,5 +16,11 @@ function randomLetters(length) {
        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
+ }
+
+
+ function log(text) {
+     // eslint-disable-next-line no-console
+    console.log(text)
  }
  

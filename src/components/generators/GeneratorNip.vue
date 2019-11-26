@@ -1,7 +1,7 @@
 <template>
 
   <div>
-    <GeneratorTemplate :generateNextValue="nextValue">
+    <GeneratorTemplate :generateNextValue="nextValue" ref="commonTemplate">
       <template v-slot:generatorName>
         <p class="headline">NIP</p>
       </template>
