@@ -19,12 +19,12 @@
             <v-expansion-panel-content>
               <v-row>
                 <v-col cols="12" lg="6">
-                  <v-textarea v-model="templateText" rows="6">
+                  <v-textarea v-model="templateText" rows="8">
                   </v-textarea>
                 </v-col>
 
                 <v-col cols="12" lg="6">
-                  <v-textarea :value="templateTextResult" rows="6" @click="copyTemplateTextResult" readonly="readonly">
+                  <v-textarea :value="templateTextResult" rows="8" @click="copyTemplateTextResult" readonly="readonly">
                   </v-textarea>
                 </v-col>
               </v-row>

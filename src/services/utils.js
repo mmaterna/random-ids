@@ -31,10 +31,12 @@ function funcExists(functionToCheck) {
 }
 
 function defaultTemplate() {
-    return `Pesel: \${pesel}, 
-Dowód osobisty: \${dowod}, 
-Dowód osobisty - seria: \${dowodSeria}, 
-Dowód osobisty - numer: \${dowodNumer},
-NIP: \${nip}
-Regon: \${regon}`
+    return `<osoba>
+	<pesel>\${pesel}</pesel>
+	<do>\${dowod}</do>
+	<do-seria>\${dowodSeria}</do-seria>
+	<do-numer>\${dowodNumer}</do-numer>
+	<nip>\${nip}</nip>
+	<regon>\${regon}</regon>
+</osoba>`
 }
