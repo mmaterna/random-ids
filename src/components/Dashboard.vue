@@ -19,7 +19,7 @@
             <v-expansion-panel-content>
               <v-row>
                 <v-col cols="12" lg="6">
-                  <v-textarea v-model="templateText" rows="8">
+                  <v-textarea v-model="templateText" rows="8" @change="saveChangedTemplate">
                   </v-textarea>
                 </v-col>
 
@@ -57,9 +57,16 @@ import GeneratorDO from "./generators/GeneratorDO.vue"
 import utils from "@/services/utils.js"
 import clipboard from '@/services/clipboard.js'
 import { EventBus } from '@/services/event-bus.js';
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Dashboard",
+
+  // right after creation
+  created() {
+    this.loadConfiguration()
+    this.templateText = this.getAllTemplates()["default"];
+  },
   mounted () {
     EventBus.$on('clicked', someData => this.clipboardCopy(someData))
     EventBus.$on('generated', () => this.calculateTemplateResult())
@@ -90,11 +97,14 @@ export default {
     snackbar: false,
     snackbarTimeout: 600,
 
-    templateText: utils.defaultTemplate(),
+    templateText: "",
     templateTextResult: "",
   }),
 
+
   methods: {
+    ...mapActions(["loadConfiguration", "updateTemplateConfiguration"]),
+    ...mapGetters(["getAllTemplates"]),
     refreshAll() {
       // call generate from template generator in every generator component
       this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate());
@@ -110,17 +120,19 @@ export default {
       });
       this.templateTextResult = textTemplate;
     },
+    saveChangedTemplate() {
+      this.updateTemplateConfiguration({"templateName": "default", "templateText": this.templateText});
+    },
     copyTemplateTextResult() {
       this.clipboardCopy(this.templateTextResult);
     },
-
     clipboardCopy(text) {
       clipboard.copyToClipboard(text)
       this.reportCopied()
     },
     reportCopied() {
       this.snackbar = true
-    },    
+    },
   }
 };
 </script>
