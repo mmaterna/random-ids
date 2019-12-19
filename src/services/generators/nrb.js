@@ -6,18 +6,18 @@ export default {
 
 const countryCode = "PL";
 let controlNubmer;
-const creditAgricoleConst = "19400008";
+const bankIdConst = "19400008";
 let randomlyGeneratedPart;
 
 function nrb() {
     controlNubmer = "00";
     randomlyGeneratedPart = utils.rand(1000000000000000, 9999999999999999);
     calulateProperControlNumber();
-    return countryCode+controlNubmer+creditAgricoleConst+randomlyGeneratedPart;
+    return countryCode+controlNubmer+bankIdConst+randomlyGeneratedPart;
 }
 
 function calulateProperControlNumber(){
-    let number = creditAgricoleConst + randomlyGeneratedPart + countryCode + controlNubmer;
+    let number = bankIdConst + randomlyGeneratedPart + countryCode + controlNubmer;
     number = translateLettersToNumbers(number);
     let modulo = modulomator(number,97);
     if(modulo!=1){
