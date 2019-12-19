@@ -93,14 +93,22 @@
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import peselService from '@/services/generators/pesel.js'
+import { mapActions } from "vuex";
 
 export default {
-  name: 'GeneratorPesel',
   components: {
     GeneratorTemplate,
   },
 
+  mounted() {
+    const loadedConfig = this.$store.getters.getGeneratorSettings('GeneratorPesel')
+    if (loadedConfig) {
+      this.currentSettings = loadedConfig
+    }
+  },
+
   data: () => ({
+    name: 'GeneratorPesel',
     dialog: false,
     valid: true,
     date: null,
@@ -108,7 +116,7 @@ export default {
     currentSettings: {
       age: 40,
       birthDate: null,
-      sex: 'all',
+      sex: 'male',
     },
     editSettings: {
       age: null,
@@ -138,6 +146,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(["updateGeneratorConfiguration"]),
     nextValue() {
       const nextPesel = peselService.pesel(
         this.currentSettings.birthDate, 
@@ -161,6 +170,8 @@ export default {
       this.currentSettings.age = this.editSettings.age
       this.currentSettings.sex = this.editSettings.sex
       this.dialog = false
+
+      this.updateGeneratorConfiguration({name: this.name, config: this.currentSettings})
     },
   },
 
