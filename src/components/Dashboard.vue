@@ -54,9 +54,10 @@ import GeneratorPesel from "./generators/GeneratorPesel.vue"
 import GeneratorNip from "./generators/GeneratorNip.vue"
 import GeneratorRegon from "./generators/GeneratorRegon.vue"
 import GeneratorDO from "./generators/GeneratorDO.vue"
+import GeneratorNrb from "./generators/GeneratorNrb"
 import utils from "@/services/utils.js"
 import clipboard from '@/services/clipboard.js'
-import { EventBus } from '@/services/event-bus.js';
+import { EventBus } from '@/services/event-bus.js'
 
 export default {
   name: "Dashboard",
@@ -85,6 +86,10 @@ export default {
       {
         name: "Regon generator",
         type: GeneratorRegon
+      },
+      {
+        name: "Nrb generator",
+        type: GeneratorNrb
       },
     ],
     snackbar: false,

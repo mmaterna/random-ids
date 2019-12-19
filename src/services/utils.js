@@ -35,6 +35,7 @@ function defaultTemplate() {
 Dowód osobisty: \${dowod}, 
 Dowód osobisty - seria: \${dowodSeria}, 
 Dowód osobisty - numer: \${dowodNumer},
-NIP: \${nip}
-Regon: \${regon}`
+NIP: \${nip},
+Regon: \${regon},
+Nrb: \${nrb}`
 }
