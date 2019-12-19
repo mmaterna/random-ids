@@ -26,7 +26,7 @@
               </v-col>
             </v-row>
             <v-row>
-              <v-col cols="12" sm="7" @click="clipboardCopy(generatedValue)">
+              <v-col block=true @click="clipboardCopy(generatedValue)">
                 <v-alert type="success" class="mb-0">
                   {{ generatedValue }}
                 </v-alert>
