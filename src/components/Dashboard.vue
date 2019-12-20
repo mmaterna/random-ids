@@ -35,14 +35,14 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12" lg="6"
+      <v-col cols="12"
         v-for="generator in generators"
         v-bind:key="generator.name"
-      >
+        v-bind:lg="generator.size"
+        >
         <component v-bind:is="generator.type" ref="generator"/>
       </v-col>
     </v-row>
-
     <v-snackbar v-model="snackbar" top :timeout="snackbarTimeout">
       Skopiowano do schowka...
     </v-snackbar>    
@@ -80,23 +80,28 @@ export default {
     generators: [
       {
         name: "PESEL generator",
-        type: GeneratorPesel
+        type: GeneratorPesel,
+        size: 6
       },
       {
         name: "DO generator",
-        type: GeneratorDO
+        type: GeneratorDO,
+        size: 6
       },
       {
         name: "NIP generator",
-        type: GeneratorNip
+        type: GeneratorNip,
+        size: 6
       },
       {
         name: "Regon generator",
-        type: GeneratorRegon
+        type: GeneratorRegon,
+        size: 6
       },
       {
         name: "Nrb generator",
-        type: GeneratorNrb
+        type: GeneratorNrb,
+        size: 12
       },
     ],
     snackbar: false,
