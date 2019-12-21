@@ -18,6 +18,7 @@ const defaultConfig = {
     <nip>\${nip}</nip>
     <regon>\${regon}</regon>
     <nrb>\${nrb}</nrb>
+    <uuid>\${uuid}</uuid>
   </osoba>`
   }
 }

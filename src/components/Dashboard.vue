@@ -56,6 +56,7 @@ import GeneratorNip from './generators/GeneratorNip.vue'
 import GeneratorRegon from './generators/GeneratorRegon.vue'
 import GeneratorDO from './generators/GeneratorDO.vue'
 import GeneratorNrb from './generators/GeneratorNrb'
+import GeneratorUUID from './generators/GeneratorUUID'
 import utils from '@/services/utils.js'
 import clipboard from '@/services/clipboard.js'
 import { EventBus } from '@/services/event-bus.js'
@@ -90,7 +91,13 @@ export default {
         name: 'Nrb generator',
         type: GeneratorNrb,
         size: 12
+      },
+      {
+        name: 'UUID generator',
+        type: GeneratorUUID,
+        size: 12
       }
+
     ],
     snackbar: false,
     snackbarTimeout: 600,
