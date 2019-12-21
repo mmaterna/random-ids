@@ -17,6 +17,7 @@ const defaultConfig = {
     <do-numer>\${dowodNumer}</do-numer>
     <nip>\${nip}</nip>
     <regon>\${regon}</regon>
+    <nrb>\${nrb}</nrb>
   </osoba>`,
   }
 };
