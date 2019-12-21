@@ -1,28 +1,26 @@
 <template>
   <div>
     <v-card class="generator-card">
-
       <v-container>
         <v-row text-center wrap dense>
-
           <v-col cols="12" sm="8">
-
             <v-row dense class="generator-header">
               <v-col>
-                <slot name="generatorName">
-                </slot>
+                <slot name="generatorName" />
               </v-col>
               <v-col>
-                <slot name="settingsButton"></slot>
+                <slot name="settingsButton" />
               </v-col>
             </v-row>
 
             <v-row dense>
               <v-col cols="12" sm="5">
-                <v-btn x-large @click="generateAndCopyToClip" color="primary">Generuj</v-btn>
+                <v-btn x-large color="primary" @click="generateAndCopyToClip">
+                  Generuj
+                </v-btn>
               </v-col>
               <v-col cols="12" sm="5" style="text-align: end;">
-                <slot name="currentSettings"></slot>
+                <slot name="currentSettings" />
               </v-col>
             </v-row>
             <v-row>
@@ -35,64 +33,61 @@
           </v-col>
 
           <v-col class="d-none d-sm-flex" sm="4">
-            <PreviousValues :previousValues="previousValues"/>
+            <PreviousValues :previous-values="previousValues" />
           </v-col>
         </v-row>
       </v-container>
-
     </v-card>
-
   </div>
-
 </template>
 
 <script>
 import PreviousValues from '@/components/common/PreviousValues.vue'
-import { EventBus } from '@/services/event-bus.js';
+import { EventBus } from '@/services/event-bus.js'
 
 export default {
   name: 'GeneratorTemplate',
   components: {
-    PreviousValues,
+    PreviousValues
   },
   props: {
     generateNextValue: {
       type: Function,
-      required: true,
+      required: true
     }
   },
   data: () => ({
     previousValues: [],
-    generatedValue: null,
+    generatedValue: null
   }),
 
-  mounted() {
-    this.nextValue();
+  mounted () {
+    this.nextValue()
   },
 
   methods: {
-    generateAndCopyToClip() {
+    generateAndCopyToClip () {
       this.generate()
       this.clipboardCopy(this.generatedValue)
     },
     // also called from dashboard when calling all generators
-    generate() {
+    generate () {
       this.previousValues.unshift(this.generatedValue)
       this.nextValue()
     },
-    nextValue() {
+    nextValue () {
       this.generatedValue = this.generateNextValue()
       EventBus.$emit('generated')
     },
-    currentValue() {
-      return this.generatedValue;
+    currentValue () {
+      return this.generatedValue
     },
-    clipboardCopy(text) {
+    clipboardCopy (text) {
       EventBus.$emit('clicked', text)
-    },
-  },
+    }
+  }
 
-};
+}
 </script>
 
 <style>

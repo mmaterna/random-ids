@@ -18,9 +18,9 @@ function generatePesel (birthDateStr, sex) {
 
   var randomPart = utils.rand(0, 9999)
 
-  if (sex === 'male' && (randomPart % 2 == 0)) {
+  if (sex === 'male' && (randomPart % 2 === 0)) {
     randomPart++
-  } else if (sex === 'female' && randomPart % 2 == 1) {
+  } else if (sex === 'female' && randomPart % 2 === 1) {
     randomPart++
   }
   const fourRandomDigits = ('0000' + randomPart.toString(10)).slice(-4)

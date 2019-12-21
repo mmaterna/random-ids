@@ -5,8 +5,10 @@
         <h2>Generator danych testowych</h2>
       </v-col>
       <v-col style="text-align: end;">
-        <v-btn x-large @click="refreshAll" color="primary">
-          <v-icon dark title="Odśwież wszystkie">mdi-refresh</v-icon>
+        <v-btn x-large color="primary" @click="refreshAll">
+          <v-icon dark title="Odśwież wszystkie">
+            mdi-refresh
+          </v-icon>
         </v-btn>
       </v-col>
     </v-row>
@@ -19,13 +21,16 @@
             <v-expansion-panel-content>
               <v-row>
                 <v-col cols="12" lg="6">
-                  <v-textarea v-model="templateText" rows="8" @change="saveChangedTemplate">
-                  </v-textarea>
+                  <v-textarea v-model="templateText" rows="8" @change="saveChangedTemplate" />
                 </v-col>
 
                 <v-col cols="12" lg="6">
-                  <v-textarea :value="templateTextResult" rows="8" @click="copyTemplateTextResult" readonly="readonly">
-                  </v-textarea>
+                  <v-textarea
+                    :value="templateTextResult"
+                    rows="8"
+                    readonly="readonly"
+                    @click="copyTemplateTextResult"
+                  />
                 </v-col>
               </v-row>
             </v-expansion-panel-content>
@@ -35,114 +40,112 @@
     </v-row>
 
     <v-row>
-      <v-col cols="12"
-        v-for="generator in generators"
-        v-bind:key="generator.name"
-        v-bind:lg="generator.size"
-        >
-        <component v-bind:is="generator.type" ref="generator"/>
+      <v-col v-for="generator in generators" :key="generator.name" cols="12" :lg="generator.size">
+        <component :is="generator.type" ref="generator" />
       </v-col>
     </v-row>
     <v-snackbar v-model="snackbar" top :timeout="snackbarTimeout">
       Skopiowano do schowka...
-    </v-snackbar>    
+    </v-snackbar>
   </v-container>
 </template>
 
 <script>
-import GeneratorPesel from "./generators/GeneratorPesel.vue"
-import GeneratorNip from "./generators/GeneratorNip.vue"
-import GeneratorRegon from "./generators/GeneratorRegon.vue"
-import GeneratorDO from "./generators/GeneratorDO.vue"
-import GeneratorNrb from "./generators/GeneratorNrb"
-import utils from "@/services/utils.js"
+import GeneratorPesel from './generators/GeneratorPesel.vue'
+import GeneratorNip from './generators/GeneratorNip.vue'
+import GeneratorRegon from './generators/GeneratorRegon.vue'
+import GeneratorDO from './generators/GeneratorDO.vue'
+import GeneratorNrb from './generators/GeneratorNrb'
+import utils from '@/services/utils.js'
 import clipboard from '@/services/clipboard.js'
-import { EventBus } from '@/services/event-bus.js';
-import { mapActions, mapGetters } from "vuex";
+import { EventBus } from '@/services/event-bus.js'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: "Dashboard",
-
-  // right after creation
-  created() {
-    this.loadConfiguration()
-    this.templateText = this.getAllTemplates()["default"];
-  },
-  mounted () {
-    EventBus.$on('clicked', someData => this.clipboardCopy(someData))
-    EventBus.$on('generated', () => this.calculateTemplateResult())
-    
-    //pierwsze przegenerowanie szablonu
-    this.calculateTemplateResult()
-  },
+  name: 'Dashboard',
 
   data: () => ({
     generators: [
       {
-        name: "PESEL generator",
+        name: 'PESEL generator',
         type: GeneratorPesel,
         size: 6
       },
       {
-        name: "DO generator",
+        name: 'DO generator',
         type: GeneratorDO,
         size: 6
       },
       {
-        name: "NIP generator",
+        name: 'NIP generator',
         type: GeneratorNip,
         size: 6
       },
       {
-        name: "Regon generator",
+        name: 'Regon generator',
         type: GeneratorRegon,
         size: 6
       },
       {
-        name: "Nrb generator",
+        name: 'Nrb generator',
         type: GeneratorNrb,
         size: 12
-      },
+      }
     ],
     snackbar: false,
     snackbarTimeout: 600,
 
-    templateText: "",
-    templateTextResult: "",
+    templateText: '',
+    templateTextResult: ''
   }),
 
+  // right after creation
+  created () {
+    this.loadConfiguration()
+    this.templateText = this.getAllTemplates().default
+  },
+  mounted () {
+    EventBus.$on('clicked', someData => this.clipboardCopy(someData))
+    EventBus.$on('generated', () => this.calculateTemplateResult())
+
+    // pierwsze przegenerowanie szablonu
+    this.calculateTemplateResult()
+  },
 
   methods: {
-    ...mapActions(["loadConfiguration", "updateTemplateConfiguration"]),
-    ...mapGetters(["getAllTemplates"]),
-    refreshAll() {
+    ...mapActions(['loadConfiguration', 'updateTemplateConfiguration']),
+    ...mapGetters(['getAllTemplates']),
+    refreshAll () {
       // call generate from template generator in every generator component
-      this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate());
-      this.calculateTemplateResult();
+      this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate())
+      this.calculateTemplateResult()
     },
-    calculateTemplateResult() {
+    calculateTemplateResult () {
       // podmien wartosci
-      var textTemplate = this.templateText;
+      var textTemplate = this.templateText
       this.$refs.generator.forEach(g => {
         if (utils.funcExists(g.substituteValue)) {
-          textTemplate = g.substituteValue(textTemplate);
+          textTemplate = g.substituteValue(textTemplate)
         }
-      });
-      this.templateTextResult = textTemplate;
+      })
+      this.templateTextResult = textTemplate
     },
-    saveChangedTemplate() {
-      this.updateTemplateConfiguration({"templateName": "default", "templateText": this.templateText});
+    saveChangedTemplate () {
+      this.updateTemplateConfiguration({
+        templateName: 'default',
+        templateText: this.templateText
+      })
     },
-    copyTemplateTextResult() {
-      this.clipboardCopy(this.templateTextResult);
+    copyTemplateTextResult () {
+      this.clipboardCopy(this.templateTextResult)
     },
-    clipboardCopy(text) {
+    clipboardCopy (text) {
       clipboard.copyToClipboard(text)
       this.reportCopied()
     },
-    reportCopied() {
+    reportCopied () {
       this.snackbar = true
-    },
+    }
   }
-};
+}
 </script>

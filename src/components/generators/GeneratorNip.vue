@@ -1,11 +1,15 @@
 <template>
-
   <div>
-    <GeneratorTemplate :generateNextValue="nextValue" ref="commonTemplate">
+    <GeneratorTemplate
+      ref="commonTemplate"
+      :generate-next-value="nextValue"
+    >
       <template v-slot:generatorName>
-        <p class="headline">NIP</p>
+        <p class="headline">
+          NIP
+        </p>
       </template>
-    </GeneratorTemplate>    
+    </GeneratorTemplate>
   </div>
 </template>
 
@@ -16,19 +20,19 @@ import nipService from '@/services/generators/nip.js'
 export default {
   name: 'GeneratorNip',
   components: {
-    GeneratorTemplate,
+    GeneratorTemplate
   },
   methods: {
-    nextValue() {
+    nextValue () {
       return nipService.nip()
     },
 
-    substituteValue(text) {
-      return text.replace(/\$\{nip\}/g, this.$refs.commonTemplate.currentValue());
+    substituteValue (text) {
+      return text.replace(/\$\{nip\}/g, this.$refs.commonTemplate.currentValue())
     }
 
-  },
-};
+  }
+}
 </script>
 
 <style>

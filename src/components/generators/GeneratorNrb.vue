@@ -1,11 +1,12 @@
 <template>
-
   <div>
-    <GeneratorTemplate :generateNextValue="nextValue" ref="commonTemplate">
+    <GeneratorTemplate ref="commonTemplate" :generate-next-value="nextValue">
       <template v-slot:generatorName>
-        <p class="headline">NRB</p>
+        <p class="headline">
+          NRB
+        </p>
       </template>
-    </GeneratorTemplate>    
+    </GeneratorTemplate>
   </div>
 </template>
 
@@ -16,19 +17,19 @@ import nrbService from '@/services/generators/nrb.js'
 export default {
   name: 'GeneratorNrb',
   components: {
-    GeneratorTemplate,
+    GeneratorTemplate
   },
   methods: {
-    nextValue() {
+    nextValue () {
       return nrbService.nrb()
     },
 
-    substituteValue(text) {
-      return text.replace(/\$\{nrb\}/g, this.$refs.commonTemplate.currentValue());
+    substituteValue (text) {
+      return text.replace(/\$\{nrb\}/g, this.$refs.commonTemplate.currentValue())
     }
 
-  },
-};
+  }
+}
 </script>
 
 <style>

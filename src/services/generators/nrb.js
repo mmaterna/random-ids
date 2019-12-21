@@ -20,7 +20,7 @@ function calulateProperControlNumber () {
   let number = bankIdConst + randomlyGeneratedPart + countryCode + controlNubmer
   number = translateLettersToNumbers(number)
   const modulo = modulomator(number, 97)
-  if (modulo != 1) {
+  if (modulo !== 1) {
     controlNubmer = 98 - modulo
   }
 

@@ -1,6 +1,10 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
       <div class="d-flex align-center">
         <v-img
           alt="Vuetify Logo"
@@ -20,10 +24,10 @@
 </template>
 
 <script>
-import Dashboard from "./components/Dashboard";
+import Dashboard from './components/Dashboard'
 
 export default {
-  name: "App",
+  name: 'App',
 
   components: {
     Dashboard
@@ -31,7 +35,7 @@ export default {
 
   data: () => ({
     //
-  }),
+  })
 
-};
+}
 </script>
