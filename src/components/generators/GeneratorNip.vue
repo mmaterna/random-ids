@@ -18,19 +18,18 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import nipService from '@/services/generators/nip.js'
 
 export default {
-  name: 'GeneratorNip',
   components: {
     GeneratorTemplate
   },
+
+  data: () => ({
+    placeholder: 'nip'
+  }),
+
   methods: {
     nextValue () {
       return nipService.nip()
-    },
-
-    substituteValue (text) {
-      return text.replace(/\$\{nip\}/g, this.$refs.commonTemplate.currentValue())
     }
-
   }
 }
 </script>

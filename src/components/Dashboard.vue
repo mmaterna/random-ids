@@ -40,7 +40,7 @@
     </v-row>
 
     <v-row>
-      <v-col v-for="generator in generators" :key="generator.name" cols="12" :lg="generator.size">
+      <v-col v-for="generator in generators" :key="generator.type._uid" cols="12" :lg="generator.size">
         <component :is="generator.type" ref="generator" />
       </v-col>
     </v-row>
@@ -63,37 +63,30 @@ import { EventBus } from '@/services/event-bus.js'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
-  name: 'Dashboard',
 
   data: () => ({
     generators: [
       {
-        name: 'PESEL generator',
         type: GeneratorPesel,
         size: 6
       },
       {
-        name: 'DO generator',
         type: GeneratorDO,
         size: 6
       },
       {
-        name: 'NIP generator',
         type: GeneratorNip,
         size: 6
       },
       {
-        name: 'Regon generator',
         type: GeneratorRegon,
         size: 6
       },
       {
-        name: 'Nrb generator',
         type: GeneratorNrb,
         size: 12
       },
       {
-        name: 'UUID generator',
         type: GeneratorUUID,
         size: 12
       }
@@ -132,7 +125,11 @@ export default {
       var textTemplate = this.templateText
       this.$refs.generator.forEach(g => {
         if (utils.funcExists(g.substituteValue)) {
+          // generator ma specyficzna funkcje podmieniajaca, trzeba ja wywolac
           textTemplate = g.substituteValue(textTemplate)
+        } else if (utils.stringPropertyExists(g.placeholder)) {
+          // jesli jest podany placeholder, to podmiana wartosci wg wzorca
+          textTemplate = utils.replaceAll(textTemplate, g.placeholder, g.$refs.commonTemplate.currentValue())
         }
       })
       this.templateTextResult = textTemplate

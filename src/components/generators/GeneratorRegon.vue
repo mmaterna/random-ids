@@ -18,12 +18,12 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import regonService from '@/services/generators/regon.js'
 
 export default {
-  name: 'GeneratorRegon',
   components: {
     GeneratorTemplate
   },
 
   data: () => ({
+    placeholder: 'regon',
     regon14: false
   }),
 
@@ -36,6 +36,7 @@ export default {
       }
     }
   },
+
   methods: {
     nextValue () {
       if (this.regon14) {
@@ -43,9 +44,6 @@ export default {
       } else {
         return regonService.regon9()
       }
-    },
-    substituteValue (text) {
-      return text.replace(/\$\{regon\}/g, this.$refs.commonTemplate.currentValue())
     }
   }
 

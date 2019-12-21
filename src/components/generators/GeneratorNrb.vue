@@ -19,15 +19,15 @@ export default {
   components: {
     GeneratorTemplate
   },
+
+  data: () => ({
+    placeholder: 'nrb'
+  }),
+
   methods: {
     nextValue () {
       return nrbService.nrb()
-    },
-
-    substituteValue (text) {
-      return text.replace(/\$\{nrb\}/g, this.$refs.commonTemplate.currentValue())
     }
-
   }
 }
 </script>

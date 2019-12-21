@@ -46,16 +46,17 @@ import PreviousValues from '@/components/common/PreviousValues.vue'
 import { EventBus } from '@/services/event-bus.js'
 
 export default {
-  name: 'GeneratorTemplate',
   components: {
     PreviousValues
   },
+
   props: {
     generateNextValue: {
       type: Function,
       required: true
     }
   },
+
   data: () => ({
     previousValues: [],
     generatedValue: null
