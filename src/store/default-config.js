@@ -6,11 +6,11 @@ const defaultConfig = {
     GeneratorPesel: {
       age: 40,
       birthDate: null,
-      sex: "male"
+      sex: 'male'
     }
   },
   templates: {
-    "default": `<osoba>
+    default: `<osoba>
     <pesel>\${pesel}</pesel>
     <do>\${dowod}</do>
     <do-seria>\${dowodSeria}</do-seria>
@@ -18,12 +18,12 @@ const defaultConfig = {
     <nip>\${nip}</nip>
     <regon>\${regon}</regon>
     <nrb>\${nrb}</nrb>
-  </osoba>`,
+  </osoba>`
   }
-};
+}
 
 export default {
-  get() {
-    return defaultConfig;
+  get () {
+    return defaultConfig
   }
-};
+}
