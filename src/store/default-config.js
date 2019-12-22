@@ -19,6 +19,7 @@ const defaultConfig = {
     <regon>\${regon}</regon>
     <nrb>\${nrb}</nrb>
     <uuid>\${uuid}</uuid>
+    <passport>\${passport}</passport>
   </osoba>`
   }
 }
