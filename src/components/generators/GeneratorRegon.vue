@@ -19,13 +19,13 @@ import regonService from '@/services/generators/regon.js'
 
 export default {
   name: 'REGON',
+  placeholder: 'regon',
 
   components: {
     GeneratorTemplate
   },
 
   data: () => ({
-    placeholder: 'regon',
     regon14: false
   }),
 

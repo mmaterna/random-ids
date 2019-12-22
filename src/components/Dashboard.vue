@@ -107,9 +107,9 @@ export default {
           if (utils.funcExists(g.substituteValue)) {
             // generator ma specyficzna funkcje podmieniajaca, trzeba ja wywolac
             textTemplate = g.substituteValue(textTemplate)
-          } else if (utils.stringPropertyExists(g.placeholder)) {
+          } else if (utils.stringPropertyExists(g.$options.placeholder)) {
             // jesli jest podany placeholder, to podmiana wartosci wg wzorca
-            textTemplate = utils.replaceAll(textTemplate, g.placeholder, g.$refs.commonTemplate.currentValue())
+            textTemplate = utils.replaceAll(textTemplate, g.$options.placeholder, g.$refs.commonTemplate.currentValue())
           }
         })
       }

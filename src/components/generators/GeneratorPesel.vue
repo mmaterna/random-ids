@@ -107,13 +107,13 @@ import { mapActions } from 'vuex'
 
 export default {
   name: 'PESEL',
+  placeholder: 'pesel',
 
   components: {
     GeneratorTemplate
   },
 
   data: () => ({
-    placeholder: 'pesel',
     dialog: false,
     valid: true,
     date: null,

@@ -17,13 +17,13 @@ import utils from '@/services/utils.js'
 
 export default {
   name: 'DO',
+  placeholder: 'dowod',
 
   components: {
     GeneratorTemplate
   },
 
   data: () => ({
-    placeholder: 'dowod',
     seria: '',
     numer: ''
   }),
@@ -37,7 +37,7 @@ export default {
       return result.seriaNumer
     },
     substituteValue (text) {
-      var result = utils.replaceAll(text, this.placeholder, this.$refs.commonTemplate.currentValue())
+      var result = utils.replaceAll(text, this.$options.placeholder, this.$refs.commonTemplate.currentValue())
       // dodatkowe placeholdery
       result = utils.replaceAll(result, 'dowodSeria', this.seria)
       result = utils.replaceAll(result, 'dowodNumer', this.numer)

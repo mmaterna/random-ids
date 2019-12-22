@@ -16,18 +16,22 @@ import nrbService from '@/services/generators/nrb.js'
 
 export default {
   name: 'NRB',
+  placeholder: 'nrb',
 
   components: {
     GeneratorTemplate
   },
 
   data: () => ({
-    placeholder: 'nrb'
+    currentSettings: {
+      countryCode: 'PL',
+      bankIdConst: '19400008'
+    }
   }),
 
   methods: {
     nextValue () {
-      return nrbService.nrb()
+      return nrbService.nrb(this.currentSettings.countryCode, this.currentSettings.bankIdConst)
     }
   }
 }

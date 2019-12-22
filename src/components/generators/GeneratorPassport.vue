@@ -19,14 +19,11 @@ import passportService from '@/services/generators/passport.js'
 
 export default {
   name: 'PASSPORT',
+  placeholder: 'passport',
 
   components: {
     GeneratorTemplate
   },
-
-  data: () => ({
-    placeholder: 'passport'
-  }),
 
   methods: {
     nextValue () {

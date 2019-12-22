@@ -19,14 +19,11 @@ import nipService from '@/services/generators/nip.js'
 
 export default {
   name: 'NIP',
+  placeholder: 'nip',
 
   components: {
     GeneratorTemplate
   },
-
-  data: () => ({
-    placeholder: 'nip'
-  }),
 
   methods: {
     nextValue () {

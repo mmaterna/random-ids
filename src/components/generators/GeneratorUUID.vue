@@ -19,14 +19,11 @@ import uuidService from '@/services/generators/uuid.js'
 
 export default {
   name: 'UUID',
+  placeholder: 'uuid',
 
   components: {
     GeneratorTemplate
   },
-
-  data: () => ({
-    placeholder: 'uuid'
-  }),
 
   methods: {
     nextValue () {
