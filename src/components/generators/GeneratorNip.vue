@@ -18,6 +18,8 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import nipService from '@/services/generators/nip.js'
 
 export default {
+  name: 'NIP',
+
   components: {
     GeneratorTemplate
   },

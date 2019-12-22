@@ -1,17 +1,9 @@
 <template>
   <v-container>
-    <v-row text-center wrap>
+    <!-- <v-row text-center wrap>
       <v-col>
-        <h2>Generator danych testowych</h2>
       </v-col>
-      <v-col style="text-align: end;">
-        <v-btn x-large color="primary" @click="refreshAll">
-          <v-icon dark title="Odśwież wszystkie">
-            mdi-refresh
-          </v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row>
       <v-col cols="12">
@@ -21,16 +13,10 @@
             <v-expansion-panel-content>
               <v-row>
                 <v-col cols="12" lg="6">
-                  <v-textarea v-model="templateText" rows="8" @change="saveChangedTemplate" />
+                  <v-textarea v-model="templateText" rows="15" @change="saveChangedTemplate" />
                 </v-col>
-
                 <v-col cols="12" lg="6">
-                  <v-textarea
-                    :value="templateTextResult"
-                    rows="8"
-                    readonly="readonly"
-                    @click="copyTemplateTextResult"
-                  />
+                  <v-textarea :value="templateTextResult" rows="15" readonly="readonly" @click="copyTemplateTextResult" />
                 </v-col>
               </v-row>
             </v-expansion-panel-content>
@@ -40,7 +26,7 @@
     </v-row>
 
     <v-row>
-      <v-col v-for="generator in generators" :key="generator.type._uid" cols="12" :lg="generator.size">
+      <v-col v-for="generator in activeGenerators" :key="generator.type._uid" cols="12" :lg="generator.size">
         <component :is="generator.type" ref="generator" />
       </v-col>
     </v-row>
@@ -64,39 +50,18 @@ import { EventBus } from '@/services/event-bus.js'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+  allGenerators: [
+    { type: GeneratorPesel, size: 6 },
+    { type: GeneratorDO, size: 6 },
+    { type: GeneratorNip, size: 6 },
+    { type: GeneratorRegon, size: 6 },
+    { type: GeneratorNrb, size: 12 },
+    { type: GeneratorUUID, size: 12 },
+    { type: GeneratorPassport, size: 12 }
+  ],
 
   data: () => ({
-    generators: [
-      {
-        type: GeneratorPesel,
-        size: 6
-      },
-      {
-        type: GeneratorDO,
-        size: 6
-      },
-      {
-        type: GeneratorNip,
-        size: 6
-      },
-      {
-        type: GeneratorRegon,
-        size: 6
-      },
-      {
-        type: GeneratorNrb,
-        size: 12
-      },
-      {
-        type: GeneratorUUID,
-        size: 12
-      },
-      {
-        type: GeneratorPassport,
-        size: 12
-      }
 
-    ],
     snackbar: false,
     snackbarTimeout: 600,
 
@@ -104,11 +69,22 @@ export default {
     templateTextResult: ''
   }),
 
+  computed: {
+    validGenerators () {
+      return this.$options.allGenerators.filter(g => utils.stringPropertyExists(g.type.name))
+    },
+    activeGenerators () {
+      return this.validGenerators
+    }
+  },
+
   // right after creation
   created () {
     this.loadConfiguration()
+    // podstawienie domyslnego szablonu
     this.templateText = this.getAllTemplates().default
   },
+
   mounted () {
     EventBus.$on('clicked', someData => this.clipboardCopy(someData))
     EventBus.$on('generated', () => this.calculateTemplateResult())
@@ -120,23 +96,28 @@ export default {
   methods: {
     ...mapActions(['loadConfiguration', 'updateTemplateConfiguration']),
     ...mapGetters(['getAllTemplates']),
+
     refreshAll () {
       // call generate from template generator in every generator component
-      this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate())
+      if (this.$refs.generator) {
+        this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate())
+      }
       this.calculateTemplateResult()
     },
     calculateTemplateResult () {
       // podmien wartosci
       var textTemplate = this.templateText
-      this.$refs.generator.forEach(g => {
-        if (utils.funcExists(g.substituteValue)) {
-          // generator ma specyficzna funkcje podmieniajaca, trzeba ja wywolac
-          textTemplate = g.substituteValue(textTemplate)
-        } else if (utils.stringPropertyExists(g.placeholder)) {
-          // jesli jest podany placeholder, to podmiana wartosci wg wzorca
-          textTemplate = utils.replaceAll(textTemplate, g.placeholder, g.$refs.commonTemplate.currentValue())
-        }
-      })
+      if (this.$refs.generator) {
+        this.$refs.generator.forEach(g => {
+          if (utils.funcExists(g.substituteValue)) {
+            // generator ma specyficzna funkcje podmieniajaca, trzeba ja wywolac
+            textTemplate = g.substituteValue(textTemplate)
+          } else if (utils.stringPropertyExists(g.placeholder)) {
+            // jesli jest podany placeholder, to podmiana wartosci wg wzorca
+            textTemplate = utils.replaceAll(textTemplate, g.placeholder, g.$refs.commonTemplate.currentValue())
+          }
+        })
+      }
       this.templateTextResult = textTemplate
     },
     saveChangedTemplate () {

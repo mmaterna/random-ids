@@ -3,7 +3,7 @@
  */
 const defaultConfig = {
   generators: {
-    GeneratorPesel: {
+    PESEL: {
       age: 40,
       birthDate: null,
       sex: 'male'

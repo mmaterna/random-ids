@@ -15,7 +15,7 @@
 
             <v-row dense>
               <v-col cols="12" sm="5">
-                <v-btn x-large color="primary" @click="generateAndCopyToClip">
+                <v-btn large color="primary" @click="generateAndCopyToClip">
                   Generuj
                 </v-btn>
               </v-col>

@@ -18,6 +18,8 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import regonService from '@/services/generators/regon.js'
 
 export default {
+  name: 'REGON',
+
   components: {
     GeneratorTemplate
   },

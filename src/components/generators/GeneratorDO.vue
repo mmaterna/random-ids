@@ -16,6 +16,8 @@ import doService from '@/services/generators/do.js'
 import utils from '@/services/utils.js'
 
 export default {
+  name: 'DO',
+
   components: {
     GeneratorTemplate
   },

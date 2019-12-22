@@ -106,6 +106,8 @@ import peselService from '@/services/generators/pesel.js'
 import { mapActions } from 'vuex'
 
 export default {
+  name: 'PESEL',
+
   components: {
     GeneratorTemplate
   },
@@ -148,8 +150,8 @@ export default {
     }
   },
 
-  mounted () {
-    const loadedConfig = this.$store.getters.getGeneratorSettings('GeneratorPesel')
+  created () {
+    const loadedConfig = this.$store.getters.getGeneratorSettings(this.$options.name)
     if (loadedConfig) {
       this.currentSettings = loadedConfig
     }
@@ -177,7 +179,7 @@ export default {
       this.currentSettings.sex = this.editSettings.sex
       this.dialog = false
 
-      this.updateGeneratorConfiguration({ name: this.name, config: this.currentSettings })
+      this.updateGeneratorConfiguration({ name: this.$options.name, config: this.currentSettings })
     }
   }
 
