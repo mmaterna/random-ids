@@ -57,7 +57,7 @@ export default {
     { type: GeneratorRegon, size: 6 },
     { type: GeneratorNrb, size: 12 },
     { type: GeneratorUUID, size: 12 },
-    { type: GeneratorPassport, size: 12 }
+    { type: GeneratorPassport, size: 6 }
   ],
 
   data: () => ({
