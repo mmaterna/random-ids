@@ -7,7 +7,7 @@
     >
       <div class="d-flex align-center">
         <v-img
-          alt="Vuetify Logo"
+          alt="Logo"
           class="shrink mr-2"
           contain
           src="logo.png"
@@ -15,10 +15,25 @@
           width="40"
         />
       </div>
+      <v-toolbar-title class="ml-10 hidden-sm-and-down ">
+        <h1>Generator danych testowych</h1>
+      </v-toolbar-title>
+
+      <v-col style="text-align: end;">
+        <v-btn large rounded outlined color="accent" title="Generuj wszystkie" @click="refreshAll">
+          <v-img
+            alt="Generuj wszystkie"
+            class="shrink mr-2"
+            src="logo.png"
+            width="30"
+          />
+          Generuj wszystkie
+        </v-btn>
+      </v-col>
     </v-app-bar>
 
     <v-content>
-      <Dashboard />
+      <Dashboard ref="dashboard" />
     </v-content>
   </v-app>
 </template>
@@ -33,9 +48,11 @@ export default {
     Dashboard
   },
 
-  data: () => ({
-    //
-  })
+  methods: {
+    refreshAll () {
+      this.$refs.dashboard.refreshAll()
+    }
+  }
 
 }
 </script>

@@ -1,17 +1,9 @@
 <template>
   <v-container>
-    <v-row text-center wrap>
+    <!-- <v-row text-center wrap>
       <v-col>
-        <h1>Generator danych testowych</h1>
       </v-col>
-      <v-col style="text-align: end;">
-        <v-btn x-large color="primary" @click="refreshAll">
-          <v-icon dark title="Odśwież wszystkie">
-            mdi-refresh
-          </v-icon>
-        </v-btn>
-      </v-col>
-    </v-row>
+    </v-row> -->
 
     <v-row>
       <v-col cols="12">
@@ -21,16 +13,10 @@
             <v-expansion-panel-content>
               <v-row>
                 <v-col cols="12" lg="6">
-                  <v-textarea v-model="templateText" rows="8" @change="saveChangedTemplate" />
+                  <v-textarea v-model="templateText" rows="15" @change="saveChangedTemplate" />
                 </v-col>
-
                 <v-col cols="12" lg="6">
-                  <v-textarea
-                    :value="templateTextResult"
-                    rows="8"
-                    readonly="readonly"
-                    @click="copyTemplateTextResult"
-                  />
+                  <v-textarea :value="templateTextResult" rows="15" readonly="readonly" @click="copyTemplateTextResult" />
                 </v-col>
               </v-row>
             </v-expansion-panel-content>
