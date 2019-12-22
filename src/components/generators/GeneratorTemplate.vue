@@ -5,10 +5,10 @@
         <v-row text-center wrap dense>
           <v-col cols="12" sm="7">
             <v-row dense class="generator-header">
-              <v-col>
+              <v-col cols="8">
                 <slot name="generatorName" />
               </v-col>
-              <v-col>
+              <v-col cols="4">
                 <slot name="settingsButton" />
               </v-col>
             </v-row>
