@@ -2,7 +2,7 @@
   <v-container>
     <v-row text-center wrap>
       <v-col>
-        <h2>Generator danych testowych</h2>
+        <h1>Generator danych testowych</h1>
       </v-col>
       <v-col style="text-align: end;">
         <v-btn x-large color="primary" @click="refreshAll">
@@ -40,7 +40,7 @@
     </v-row>
 
     <v-row>
-      <v-col v-for="generator in generators" :key="generator.type._uid" cols="12" :lg="generator.size">
+      <v-col v-for="generator in activeGenerators" :key="generator.type._uid" cols="12" :lg="generator.size">
         <component :is="generator.type" ref="generator" />
       </v-col>
     </v-row>
@@ -63,35 +63,16 @@ import { EventBus } from '@/services/event-bus.js'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
+  allGenerators: [
+    { type: GeneratorPesel, size: 6 },
+    { type: GeneratorDO, size: 6 },
+    { type: GeneratorNip, size: 6 },
+    { type: GeneratorRegon, size: 6 },
+    { type: GeneratorNrb, size: 12 },
+    { type: GeneratorUUID, size: 12 }
+  ],
 
   data: () => ({
-    generators: [
-      {
-        type: GeneratorPesel,
-        size: 6
-      },
-      {
-        type: GeneratorDO,
-        size: 6
-      },
-      {
-        type: GeneratorNip,
-        size: 6
-      },
-      {
-        type: GeneratorRegon,
-        size: 6
-      },
-      {
-        type: GeneratorNrb,
-        size: 12
-      },
-      {
-        type: GeneratorUUID,
-        size: 12
-      }
-
-    ],
     snackbar: false,
     snackbarTimeout: 600,
 
@@ -99,11 +80,22 @@ export default {
     templateTextResult: ''
   }),
 
+  computed: {
+    validGenerators () {
+      return this.$options.allGenerators.filter(g => utils.stringPropertyExists(g.type.name))
+    },
+    activeGenerators () {
+      return this.validGenerators
+    }
+  },
+
   // right after creation
   created () {
     this.loadConfiguration()
+    // podstawienie domyslnego szablonu
     this.templateText = this.getAllTemplates().default
   },
+
   mounted () {
     EventBus.$on('clicked', someData => this.clipboardCopy(someData))
     EventBus.$on('generated', () => this.calculateTemplateResult())
@@ -115,23 +107,28 @@ export default {
   methods: {
     ...mapActions(['loadConfiguration', 'updateTemplateConfiguration']),
     ...mapGetters(['getAllTemplates']),
+
     refreshAll () {
       // call generate from template generator in every generator component
-      this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate())
+      if (this.$refs.generator) {
+        this.$refs.generator.forEach(g => g.$refs.commonTemplate.generate())
+      }
       this.calculateTemplateResult()
     },
     calculateTemplateResult () {
       // podmien wartosci
       var textTemplate = this.templateText
-      this.$refs.generator.forEach(g => {
-        if (utils.funcExists(g.substituteValue)) {
-          // generator ma specyficzna funkcje podmieniajaca, trzeba ja wywolac
-          textTemplate = g.substituteValue(textTemplate)
-        } else if (utils.stringPropertyExists(g.placeholder)) {
-          // jesli jest podany placeholder, to podmiana wartosci wg wzorca
-          textTemplate = utils.replaceAll(textTemplate, g.placeholder, g.$refs.commonTemplate.currentValue())
-        }
-      })
+      if (this.$refs.generator) {
+        this.$refs.generator.forEach(g => {
+          if (utils.funcExists(g.substituteValue)) {
+            // generator ma specyficzna funkcje podmieniajaca, trzeba ja wywolac
+            textTemplate = g.substituteValue(textTemplate)
+          } else if (utils.stringPropertyExists(g.placeholder)) {
+            // jesli jest podany placeholder, to podmiana wartosci wg wzorca
+            textTemplate = utils.replaceAll(textTemplate, g.placeholder, g.$refs.commonTemplate.currentValue())
+          }
+        })
+      }
       this.templateTextResult = textTemplate
     },
     saveChangedTemplate () {

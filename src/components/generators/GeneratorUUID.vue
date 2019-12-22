@@ -18,6 +18,8 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import uuidService from '@/services/generators/uuid.js'
 
 export default {
+  name: 'UUID',
+
   components: {
     GeneratorTemplate
   },

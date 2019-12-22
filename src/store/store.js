@@ -33,12 +33,10 @@ export default new Vuex.Store({
         context.commit('setConfig', loadedConfig)
       }
     },
-
     updateGeneratorConfiguration (context, dataObject) {
       context.commit('setGeneratorConfiguration', dataObject)
       storageService.saveConfig(context.state.configuration)
     },
-
     updateTemplateConfiguration (context, dataObject) {
       context.commit('setTemplateConfiguration', dataObject)
       storageService.saveConfig(context.state.configuration)
@@ -53,7 +51,6 @@ export default new Vuex.Store({
     setTemplateConfiguration (state, dataObject) {
       state.configuration.templates[dataObject.templateName] = dataObject.templateText
     },
-
     setConfig (state, config) {
       state.configuration = config
     }

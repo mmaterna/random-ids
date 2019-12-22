@@ -15,7 +15,8 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import nrbService from '@/services/generators/nrb.js'
 
 export default {
-  name: 'GeneratorNrb',
+  name: 'NRB',
+
   components: {
     GeneratorTemplate
   },
