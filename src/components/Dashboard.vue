@@ -43,6 +43,7 @@ import GeneratorRegon from './generators/GeneratorRegon.vue'
 import GeneratorDO from './generators/GeneratorDO.vue'
 import GeneratorNrb from './generators/GeneratorNrb'
 import GeneratorUUID from './generators/GeneratorUUID'
+import GeneratorPassport from './generators/GeneratorPassport.vue'
 import utils from '@/services/utils.js'
 import clipboard from '@/services/clipboard.js'
 import { EventBus } from '@/services/event-bus.js'
@@ -55,10 +56,12 @@ export default {
     { type: GeneratorNip, size: 6 },
     { type: GeneratorRegon, size: 6 },
     { type: GeneratorNrb, size: 12 },
-    { type: GeneratorUUID, size: 12 }
+    { type: GeneratorUUID, size: 12 },
+    { type: GeneratorPassport, size: 12 }
   ],
 
   data: () => ({
+
     snackbar: false,
     snackbarTimeout: 600,
 
