@@ -1,7 +1,9 @@
 <template>
   <v-row text-center wrap dense>
-    <v-col cols="12">
-      <v-header>Poprzednie wartości</v-header>
+    <v-col cols="12" class="ml-auto">
+      <div style="text-align: center;">
+        Poprzednie wartości
+      </div>
       <v-list dense nav class="overflow-y-auto list-width ml-auto" :style="listStyle">
         <v-list-item-group color="primary">
           <v-list-item v-for="(prev, i) in previousValues" :key="i">
