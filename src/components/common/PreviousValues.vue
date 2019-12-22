@@ -6,7 +6,7 @@
         <v-list-item-group color="primary">
           <v-list-item v-for="(prev, i) in previousValues" :key="i">
             <v-list-item-content>
-              <v-list-item-title class="list-item-content" @click="clicked(prev)">
+              <v-list-item-title class="list-item-content" :title="titleFor(prev)" @click="clicked(prev)">
                 {{ prev }}
               </v-list-item-title>
             </v-list-item-content>
@@ -40,6 +40,9 @@ export default {
   methods: {
     clicked (text) {
       EventBus.$emit('clicked', text)
+    },
+    titleFor (prev) {
+      return '' + prev
     }
   }
 }

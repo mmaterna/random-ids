@@ -1,10 +1,5 @@
 <template>
   <v-container>
-    <!-- <v-row text-center wrap>
-      <v-col>
-      </v-col>
-    </v-row> -->
-
     <v-row>
       <v-col cols="12">
         <v-expansion-panels>
