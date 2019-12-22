@@ -15,9 +15,11 @@
 
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
-import passportService from '../../services/generators/passport.js'
+import passportService from '@/services/generators/passport.js'
 
 export default {
+  name: 'PASSPORT',
+
   components: {
     GeneratorTemplate
   },
