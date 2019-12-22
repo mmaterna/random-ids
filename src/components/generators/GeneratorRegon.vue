@@ -3,11 +3,11 @@
     <GeneratorTemplate ref="commonTemplate" :generate-next-value="nextValue">
       <template v-slot:generatorName>
         <p class="headline">
-          {{ regonType }}
+          {{ regonTypeString }}
         </p>
       </template>
       <template v-slot:settingsButton>
-        <v-switch v-model="regon14" :label="`${regonType}`" class="ma-0 pa-0" />
+        <v-switch v-model="currentSettings.regon9" :label="regonTypeString" class="ma-0 pa-0" @change="saveOptions" />
       </template>
     </GeneratorTemplate>
   </div>
@@ -16,6 +16,7 @@
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import regonService from '@/services/generators/regon.js'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'REGON',
@@ -26,26 +27,31 @@ export default {
   },
 
   data: () => ({
-    regon14: false
+    currentSettings: {
+      regon9: true
+    }
   }),
 
   computed: {
-    regonType () {
-      if (this.regon14) {
-        return 'Regon 14'
-      } else {
-        return 'Regon 9'
-      }
+    regonTypeString () {
+      return this.currentSettings.regon9 ? 'Regon 9' : 'Regon 14'
+    }
+  },
+
+  created () {
+    const loadedConfig = this.$store.getters.getGeneratorSettings(this.$options.name)
+    if (loadedConfig) {
+      this.currentSettings = loadedConfig
     }
   },
 
   methods: {
+    ...mapActions(['updateGeneratorConfiguration']),
     nextValue () {
-      if (this.regon14) {
-        return regonService.regon14()
-      } else {
-        return regonService.regon9()
-      }
+      return this.currentSettings.regon9 ? regonService.regon9() : regonService.regon14()
+    },
+    saveOptions () {
+      this.updateGeneratorConfiguration({ name: this.$options.name, config: this.currentSettings })
     }
   }
 
