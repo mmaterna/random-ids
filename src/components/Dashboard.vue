@@ -55,9 +55,9 @@ export default {
     { type: GeneratorDO, size: 6 },
     { type: GeneratorNip, size: 6 },
     { type: GeneratorRegon, size: 6 },
-    { type: GeneratorNrb, size: 12 },
-    { type: GeneratorUUID, size: 12 },
-    { type: GeneratorPassport, size: 6 }
+    { type: GeneratorPassport, size: 6 },
+    { type: GeneratorNrb, size: 6 },
+    { type: GeneratorUUID, size: 6 }
   ],
 
   data: () => ({

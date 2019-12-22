@@ -15,7 +15,7 @@
           width="40"
         />
       </div>
-      <v-toolbar-title class="ml-10 hidden-sm-and-down ">
+      <v-toolbar-title class="ml-10 hidden-sm-and-down">
         <h1>Generator danych testowych</h1>
       </v-toolbar-title>
 
