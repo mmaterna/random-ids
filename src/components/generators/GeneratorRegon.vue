@@ -1,51 +1,61 @@
 <template>
   <div>
-    <GeneratorTemplate :generateNextValue="nextValue" ref="commonTemplate">
+    <GeneratorTemplate ref="commonTemplate" :generate-next-value="nextValue">
       <template v-slot:generatorName>
-        <p class="headline">{{regonType}}</p>
+        <p class="headline">
+          {{ regonTypeString }}
+        </p>
       </template>
       <template v-slot:settingsButton>
-        <v-switch v-model="regon14" :label="`${regonType}`" class="ma-0 pa-0"></v-switch>        
+        <v-switch v-model="currentSettings.regon9" :label="regonTypeString" class="ma-0 pa-0" @change="saveOptions" />
       </template>
-    </GeneratorTemplate>    
+    </GeneratorTemplate>
   </div>
- </template>
+</template>
 
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import regonService from '@/services/generators/regon.js'
+import { mapActions } from 'vuex'
 
 export default {
-  name: 'GeneratorRegon',
+  name: 'REGON',
+  placeholder: 'regon',
+
   components: {
-    GeneratorTemplate,
-  },
-  computed: {
-    regonType() {
-      if (this.regon14) {
-        return "Regon 14"
-      } else {
-        return "Regon 9"
-      }
-    }
-  },
-  methods: {
-    nextValue() {
-      if (this.regon14) {
-        return regonService.regon14()
-      } else {
-        return regonService.regon9()
-      }
-    },
-    substituteValue(text) {
-      return text.replace(/\$\{regon\}/g, this.$refs.commonTemplate.currentValue());
-    },
+    GeneratorTemplate
   },
 
   data: () => ({
-    regon14: false,
+    currentSettings: {
+      regon9: true
+    }
   }),
-};
+
+  computed: {
+    regonTypeString () {
+      return this.currentSettings.regon9 ? 'Regon 9' : 'Regon 14'
+    }
+  },
+
+  created () {
+    const loadedConfig = this.$store.getters.getGeneratorSettings(this.$options.name)
+    if (loadedConfig) {
+      this.currentSettings = loadedConfig
+    }
+  },
+
+  methods: {
+    ...mapActions(['updateGeneratorConfiguration']),
+    nextValue () {
+      return this.currentSettings.regon9 ? regonService.regon9() : regonService.regon14()
+    },
+    saveOptions () {
+      this.updateGeneratorConfiguration({ name: this.$options.name, config: this.currentSettings })
+    }
+  }
+
+}
 </script>
 
 <style>

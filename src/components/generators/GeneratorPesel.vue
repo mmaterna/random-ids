@@ -1,15 +1,18 @@
 <template>
   <div>
-
-    <GeneratorTemplate :generateNextValue="nextValue" ref="commonTemplate">
+    <GeneratorTemplate ref="commonTemplate" :generate-next-value="nextValue">
       <template v-slot:generatorName>
-        <p class="headline">PESEL</p>
+        <p class="headline">
+          PESEL
+        </p>
       </template>
       <template v-slot:settingsButton>
-        <v-btn @click.stop="openSettingsDialog">Ustawienia</v-btn>
+        <v-btn @click.stop="openSettingsDialog">
+          Ustawienia
+        </v-btn>
       </template>
       <template v-slot:currentSettings>
-        {{ settingsSex }} {{ settingsAge }} {{ settingsBirthday }} 
+        {{ settingsSex }} {{ settingsAge }} {{ settingsBirthday }}
       </template>
     </GeneratorTemplate>
 
@@ -19,38 +22,46 @@
       max-width="450"
     >
       <v-card>
-        <v-card-title class="headline">Ustawienia generatora PESEL</v-card-title>
+        <v-card-title class="headline">
+          Ustawienia generatora PESEL
+        </v-card-title>
 
         <v-card-text>
           <v-form v-model="valid">
             <v-row>
               <v-col cols="12">
-                <v-radio-group v-model="editSettings.sex" >
+                <v-radio-group v-model="editSettings.sex">
                   <template v-slot:label>
                     <div>Płeć</div>
                   </template>
                   <v-radio value="male">
                     <template v-slot:label>
-                      <div class="blue--text">Mężczyzna</div>
+                      <div class="blue--text">
+                        Mężczyzna
+                      </div>
                     </template>
                   </v-radio>
                   <v-radio value="female">
                     <template v-slot:label>
-                      <div class="pink--text text--lighten-2">Kobieta</div>
+                      <div class="pink--text text--lighten-2">
+                        Kobieta
+                      </div>
                     </template>
                   </v-radio>
                   <v-radio value="all">
                     <template v-slot:label>
-                      <div class="grey--text">Wszyscy</div>
+                      <div class="grey--text">
+                        Wszyscy
+                      </div>
                     </template>
                   </v-radio>
                 </v-radio-group>
               </v-col>
-              
+
               <v-col cols="4" lg="4">
-                <v-text-field label="Wiek" v-model="editSettings.age" :rules="editSettings.ageRules" required/>
+                <v-text-field v-model="editSettings.age" label="Wiek" :rules="editSettings.ageRules" required />
               </v-col>
-              
+
               <v-col cols="8" lg="6">
                 <v-menu
                   ref="birthdayDatePickerVisible"
@@ -69,9 +80,9 @@
                       persistent-hint
                       :rules="editSettings.birthDateRules"
                       v-on="on"
-                    ></v-text-field>
+                    />
                   </template>
-                  <v-date-picker v-model="editSettings.birthDate" no-title @input="birthdayDatePickerVisible = false"></v-date-picker>
+                  <v-date-picker v-model="editSettings.birthDate" no-title @input="birthdayDatePickerVisible = false" />
                 </v-menu>
               </v-col>
             </v-row>
@@ -79,36 +90,30 @@
         </v-card-text>
 
         <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="saveOptions" :disabled="!valid">
+          <v-spacer />
+          <v-btn color="green darken-1" text :disabled="!valid" @click="saveOptions">
             Ustaw
           </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
   </div>
-
 </template>
 
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import peselService from '@/services/generators/pesel.js'
-import { mapActions } from "vuex";
+import { mapActions } from 'vuex'
 
 export default {
-  components: {
-    GeneratorTemplate,
-  },
+  name: 'PESEL',
+  placeholder: 'pesel',
 
-  mounted() {
-    const loadedConfig = this.$store.getters.getGeneratorSettings('GeneratorPesel')
-    if (loadedConfig) {
-      this.currentSettings = loadedConfig
-    }
+  components: {
+    GeneratorTemplate
   },
 
   data: () => ({
-    name: 'GeneratorPesel',
     dialog: false,
     valid: true,
     date: null,
@@ -116,66 +121,69 @@ export default {
     currentSettings: {
       age: 40,
       birthDate: null,
-      sex: 'male',
+      sex: 'male'
     },
     editSettings: {
       age: null,
-      ageRules: [a => (!a || (a >=1 && a <= 99)) || 'Wiek powinien być z przedziału między 1 a 99'],
+      ageRules: [a => (!a || (a >= 1 && a <= 99)) || 'Wiek powinien być z przedziału między 1 a 99'],
       birthDate: null,
-      birthDateRules: [a => (!a || (/^\d\d\d\d-\d\d-\d\d$/.test(a)) && !!new Date(a).toISOString()) || 'Data powinna byc w formacie yyyy-mm-dd',],
-      sex: 'all',
-    },
+      birthDateRules: [a => (!a || ((/^\d\d\d\d-\d\d-\d\d$/.test(a)) && !!new Date(a).toISOString())) || 'Data powinna byc w formacie yyyy-mm-dd'],
+      sex: 'all'
+    }
   }),
 
   computed: {
-    settingsAge() {
+    settingsAge () {
       if (this.currentSettings.birthDate) return ''
-      return this.currentSettings.age ? 'Wiek: ' + this.currentSettings.age  : ''
+      return this.currentSettings.age ? 'Wiek: ' + this.currentSettings.age : ''
     },
-    settingsBirthday() {
-      return this.currentSettings.birthDate ? 'Ur.: ' +  this.currentSettings.birthDate : ''
+    settingsBirthday () {
+      return this.currentSettings.birthDate ? 'Ur.: ' + this.currentSettings.birthDate : ''
     },
-    settingsSex() {
-      if (this.currentSettings.sex == 'male') {
+    settingsSex () {
+      if (this.currentSettings.sex === 'male') {
         return 'M'
-      } else if (this.currentSettings.sex == 'female') {
+      } else if (this.currentSettings.sex === 'female') {
         return 'K'
       }
       return ''
-    },
+    }
+  },
+
+  created () {
+    const loadedConfig = this.$store.getters.getGeneratorSettings(this.$options.name)
+    if (loadedConfig) {
+      this.currentSettings = loadedConfig
+    }
   },
 
   methods: {
-    ...mapActions(["updateGeneratorConfiguration"]),
-    nextValue() {
+    ...mapActions(['updateGeneratorConfiguration']),
+    nextValue () {
       const nextPesel = peselService.pesel(
-        this.currentSettings.birthDate, 
-        this.currentSettings.age, 
+        this.currentSettings.birthDate,
+        this.currentSettings.age,
         this.currentSettings.sex
-        )
+      )
       return nextPesel
     },
-    substituteValue(text) {
-      return text.replace(/\$\{pesel\}/g, this.$refs.commonTemplate.currentValue());
-    },
-
-    openSettingsDialog() {
+    openSettingsDialog () {
       this.editSettings.birthDate = this.currentSettings.birthDate
       this.editSettings.age = this.currentSettings.age
       this.editSettings.sex = this.currentSettings.sex
       this.dialog = true
     },
-    saveOptions() {
+    saveOptions () {
       this.currentSettings.birthDate = this.editSettings.birthDate
       this.currentSettings.age = this.editSettings.age
       this.currentSettings.sex = this.editSettings.sex
       this.dialog = false
 
-      this.updateGeneratorConfiguration({name: this.name, config: this.currentSettings})
-    },
-  },
+      this.updateGeneratorConfiguration({ name: this.$options.name, config: this.currentSettings })
+    }
+  }
 
-};
+}
 </script>
 
 <style>

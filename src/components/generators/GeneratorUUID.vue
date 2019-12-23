@@ -6,7 +6,7 @@
     >
       <template v-slot:generatorName>
         <p class="headline">
-          NIP
+          UUID
         </p>
       </template>
     </GeneratorTemplate>
@@ -15,11 +15,11 @@
 
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
-import nipService from '@/services/generators/nip.js'
+import uuidService from '@/services/generators/uuid.js'
 
 export default {
-  name: 'NIP',
-  placeholder: 'nip',
+  name: 'UUID',
+  placeholder: 'uuid',
 
   components: {
     GeneratorTemplate
@@ -27,7 +27,7 @@ export default {
 
   methods: {
     nextValue () {
-      return nipService.nip()
+      return uuidService.uuidv4()
     }
   }
 }

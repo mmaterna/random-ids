@@ -6,7 +6,7 @@
     >
       <template v-slot:generatorName>
         <p class="headline">
-          NIP
+          Paszport
         </p>
       </template>
     </GeneratorTemplate>
@@ -15,11 +15,11 @@
 
 <script>
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
-import nipService from '@/services/generators/nip.js'
+import passportService from '@/services/generators/passport.js'
 
 export default {
-  name: 'NIP',
-  placeholder: 'nip',
+  name: 'PASSPORT',
+  placeholder: 'passport',
 
   components: {
     GeneratorTemplate
@@ -27,7 +27,7 @@ export default {
 
   methods: {
     nextValue () {
-      return nipService.nip()
+      return passportService.passport()
     }
   }
 }

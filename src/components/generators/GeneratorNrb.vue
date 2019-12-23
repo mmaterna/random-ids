@@ -1,11 +1,12 @@
 <template>
-
   <div>
-    <GeneratorTemplate :generateNextValue="nextValue" ref="commonTemplate">
+    <GeneratorTemplate ref="commonTemplate" :generate-next-value="nextValue">
       <template v-slot:generatorName>
-        <p class="headline">NRB</p>
+        <p class="headline">
+          NRB
+        </p>
       </template>
-    </GeneratorTemplate>    
+    </GeneratorTemplate>
   </div>
 </template>
 
@@ -14,21 +15,26 @@ import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import nrbService from '@/services/generators/nrb.js'
 
 export default {
-  name: 'GeneratorNrb',
+  name: 'NRB',
+  placeholder: 'nrb',
+
   components: {
-    GeneratorTemplate,
+    GeneratorTemplate
   },
-  methods: {
-    nextValue() {
-      return nrbService.nrb()
-    },
 
-    substituteValue(text) {
-      return text.replace(/\$\{nrb\}/g, this.$refs.commonTemplate.currentValue());
+  data: () => ({
+    currentSettings: {
+      countryCode: 'PL',
+      bankIdConst: '19400008'
     }
+  }),
 
-  },
-};
+  methods: {
+    nextValue () {
+      return nrbService.nrb(this.currentSettings.countryCode, this.currentSettings.bankIdConst)
+    }
+  }
+}
 </script>
 
 <style>
