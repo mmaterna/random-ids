@@ -8,6 +8,7 @@
       <div class="d-flex align-center">
         <v-img
           alt="Logo"
+          title="Generator danych testowych"
           class="shrink mr-2"
           contain
           src="logo.png"
