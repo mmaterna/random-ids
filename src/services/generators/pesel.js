@@ -42,7 +42,7 @@ function prepareBirthday (birthDateStr, age) {
     const year = new Date().getFullYear() - age
     const month = last2Digits(utils.rand(1, 13))
     const day = last2Digits(utils.rand(1, daysInMonth(year, month) + 1))
-    // wyliczyc testowa date urodzenia
+
     return `${year}-${month}-${day}`
   } else {
     const currentYear = new Date().getFullYear()
@@ -54,7 +54,8 @@ function prepareBirthday (birthDateStr, age) {
 }
 
 function daysInMonth (year, month) {
-  return new Date(year, month + 1, 0).getDate()
+  // 0 dzien nastepnego miesiaca (miesiace indeksowane od 0, czyli dla argumentu 1 (w znaczeniu styczen) bierze 0 dzien lutego (0-styczen, 1-luty))
+  return new Date(year, month, 0).getDate()
 }
 
 function last2Digits (number) {
