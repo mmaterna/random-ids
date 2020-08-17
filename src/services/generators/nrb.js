@@ -7,7 +7,7 @@ export default {
 function nrb (countryCode, bankId) {
   const randomlyGeneratedPart = utils.rand(1000000000000000, 9999999999999999)
   const controlNubmer = calulateProperControlNumber(countryCode, bankId, randomlyGeneratedPart)
-  return countryCode + controlNubmer + bankId + randomlyGeneratedPart
+  return controlNubmer + bankId + randomlyGeneratedPart
 }
 
 function calulateProperControlNumber (countryCode, bankId, randomlyGeneratedPart) {
