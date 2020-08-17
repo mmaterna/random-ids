@@ -59,7 +59,7 @@
               </v-col>
 
               <v-col cols="4" lg="4">
-                <v-text-field v-model="editSettings.age" label="Wiek" :rules="editSettings.ageRules" required />
+                <v-text-field v-model="editSettings.age" label="Wiek" :rules="[ageRules]" required />
               </v-col>
 
               <v-col cols="8" lg="6">
@@ -78,7 +78,7 @@
                       label="Data urodzenia"
                       hint="YYYY-MM-DD"
                       persistent-hint
-                      :rules="editSettings.birthDateRules"
+                      :rules=" [birthDateRules] "
                       v-on="on"
                     />
                   </template>
@@ -104,6 +104,7 @@
 import GeneratorTemplate from '@/components/generators/GeneratorTemplate.vue'
 import peselService from '@/services/generators/pesel.js'
 import { mapActions } from 'vuex'
+import utils from '@/services/utils.js'
 
 export default {
   name: 'PESEL',
@@ -125,9 +126,7 @@ export default {
     },
     editSettings: {
       age: null,
-      ageRules: [a => (!a || (a >= 1 && a <= 99)) || 'Wiek powinien być z przedziału między 1 a 99'],
       birthDate: null,
-      birthDateRules: [a => (!a || ((/^\d\d\d\d-\d\d-\d\d$/.test(a)) && !!new Date(a).toISOString())) || 'Data powinna byc w formacie yyyy-mm-dd'],
       sex: 'all'
     }
   }),
@@ -180,6 +179,12 @@ export default {
       this.dialog = false
 
       this.updateGeneratorConfiguration({ name: this.$options.name, config: this.currentSettings })
+    },
+    birthDateRules (a) {
+      return !a || ((/^\d\d\d\d-\d\d-\d\d$/.test(a)) && !!utils.isDateValid(a)) || 'Data powinna byc w formacie yyyy-mm-dd z przedziału 1000-01-01 do 2999-12-31'
+    },
+    ageRules (a) {
+      return !a || (a >= 1 && a <= 99) || 'Wiek powinien być z przedziału między 1 a 99'
     }
   }
 
