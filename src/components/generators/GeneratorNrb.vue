@@ -28,33 +28,50 @@ export default {
     currentSettings: {
       showCountryCode: 'false',
       countryCode: 'PL',
-      bankIdConst: '19400008'
+      bankId: 1940
     },
     editedSettings: {
       showCountryCode: null,
       countryCode: null,
-      bankIdConst: null
-    }
+      bankId: null
+
+    },
+    banks: [
+      { text: 'Credit Agricole Bank Polska', value: 1940 },
+      { text: 'Narodowy Bank Polski', value: 1010 },
+      { text: 'PKO BP', value: 1020 },
+      { text: 'ING', value: 1050 },
+      { text: 'BPH', value: 1060 },
+      { text: 'Santander', value: 1090 },
+      { text: 'mBank', value: 1140 },
+      { text: 'Bank Millennium', value: 1160 },
+      { text: 'Pekao', value: 1240 },
+      { text: 'BNP Paribas Bank Polska SA', value: 1750 },
+      { text: 'Societe Generale', value: 1840 },
+      { text: 'Nest Bank', value: 1870 },
+      { text: 'Idea Bank', value: 1950 },
+      { text: 'Alior Bank', value: 2490 }
+    ]
   }),
 
   methods: {
     nextValue () {
       if (this.currentSettings.showCountryCode === 'true') {
-        return this.currentSettings.countryCode + nrbService.nrb(this.currentSettings.countryCode, this.currentSettings.bankIdConst)
+        return this.currentSettings.countryCode + nrbService.nrb(this.currentSettings.countryCode, this.currentSettings.bankId)
       } else {
-        return nrbService.nrb(this.currentSettings.countryCode, this.currentSettings.bankIdConst)
+        return nrbService.nrb(this.currentSettings.countryCode, this.currentSettings.bankId)
       }
     },
     openSettingsDialog () {
       this.editedSettings.showCountryCode = this.currentSettings.showCountryCode
       this.editedSettings.countryCode = this.currentSettings.countryCode
-      this.editedSettings.bankIdConst = this.currentSettings.bankIdConst
+      this.editedSettings.bankId = this.currentSettings.bankId
       this.dialog = true
     },
     saveOptions () {
       this.currentSettings.showCountryCode = this.editedSettings.showCountryCode
       this.currentSettings.countryCode = this.editedSettings.countryCode
-      this.currentSettings.bankIdConst = this.editedSettings.bankIdConst
+      this.currentSettings.bankId = this.editedSettings.bankId
       this.dialog = false
     }
   }
