@@ -6,7 +6,61 @@
           NRB
         </p>
       </template>
+      <template v-slot:settingsButton>
+        <v-btn @click.stop="openSettingsDialog">
+          Ustawienia
+        </v-btn>
+      </template>
     </GeneratorTemplate>
+    <!-- settings dialog -->
+    <v-dialog
+      max-width="450"
+      v-model="dialog"
+    >
+      <v-card>
+        <v-card-title class="headline">
+          Ustawienia generatora NRB
+        </v-card-title>
+
+        <v-card-text>
+          <v-form v-model="valid">
+            <v-col cols="12">
+              <v-radio-group v-model="editedSettings.showCountryCode">
+                <template v-slot:label>
+                  <div>Czy wyświetlać kod kraju?</div>
+                </template>
+                <v-radio value="true">
+                  <template v-slot:label>
+                    <div class="blue--text">
+                      Tak
+                    </div>
+                  </template>
+                </v-radio>
+                <v-radio value="false">
+                  <template v-slot:label>
+                    <div class="pink--text text--lighten-2">
+                      Nie
+                    </div>
+                  </template>
+                </v-radio>
+              </v-radio-group>
+              <v-select :items="banks" :value="editedSettings.bankId" v-model="editedSettings.bankId">
+                <template v-slot:label>
+                  <div>Jakiego banku rachunek wygenerować?</div>
+                </template>
+              </v-select>
+            </v-col>
+          </v-form>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer />
+          <v-btn :disabled="!valid" @click="saveOptions" color="green darken-1" text>
+            Ustaw
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
