@@ -14,8 +14,8 @@
     </GeneratorTemplate>
     <!-- settings dialog -->
     <v-dialog
-      max-width="450"
       v-model="dialog"
+      max-width="450"
     >
       <v-card>
         <v-card-title class="headline">
