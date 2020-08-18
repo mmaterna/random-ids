@@ -44,7 +44,7 @@
                   </template>
                 </v-radio>
               </v-radio-group>
-              <v-select :items="banks" :value="editedSettings.bankId" v-model="editedSettings.bankId">
+              <v-select v-model="editedSettings.bankId" :items="banks" :value="editedSettings.bankId">
                 <template v-slot:label>
                   <div>Jakiego banku rachunek wygenerować?</div>
                 </template>
@@ -55,7 +55,7 @@
 
         <v-card-actions>
           <v-spacer />
-          <v-btn :disabled="!valid" @click="saveOptions" color="green darken-1" text>
+          <v-btn :disabled="!valid" text color="green darken-1" @click="saveOptions">
             Ustaw
           </v-btn>
         </v-card-actions>
