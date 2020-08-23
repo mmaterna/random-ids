@@ -33,9 +33,9 @@
       </v-col>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <Dashboard ref="dashboard" />
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
