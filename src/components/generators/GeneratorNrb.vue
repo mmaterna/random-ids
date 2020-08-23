@@ -88,23 +88,22 @@ export default {
       showCountryCode: null,
       countryCode: null,
       bankId: null
-
     },
     banks: [
-      { text: 'Credit Agricole Bank Polska', value: 1940 },
-      { text: 'Narodowy Bank Polski', value: 1010 },
-      { text: 'PKO BP', value: 1020 },
-      { text: 'ING', value: 1050 },
-      { text: 'BPH', value: 1060 },
-      { text: 'Santander', value: 1090 },
-      { text: 'mBank', value: 1140 },
+      { text: 'Alior Bank', value: 2490 },
       { text: 'Bank Millennium', value: 1160 },
-      { text: 'Pekao', value: 1240 },
       { text: 'BNP Paribas Bank Polska SA', value: 1750 },
-      { text: 'Societe Generale', value: 1840 },
-      { text: 'Nest Bank', value: 1870 },
+      { text: 'BPH', value: 1060 },
+      { text: 'Credit Agricole Bank Polska', value: 1940 },
       { text: 'Idea Bank', value: 1950 },
-      { text: 'Alior Bank', value: 2490 }
+      { text: 'ING', value: 1050 },
+      { text: 'mBank', value: 1140 },
+      { text: 'Narodowy Bank Polski', value: 1010 },
+      { text: 'Nest Bank', value: 1870 },
+      { text: 'Pekao', value: 1240 },
+      { text: 'PKO BP', value: 1020 },
+      { text: 'Santander', value: 1090 },
+      { text: 'Societe Generale', value: 1840 }
     ]
   }),
 
