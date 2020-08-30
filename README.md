@@ -23,7 +23,7 @@ yarn run build
 
 ### Run your tests
 ```
-yarn run test
+jest
 ```
 
 ### Lints and fixes files
