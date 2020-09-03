@@ -37,12 +37,15 @@ function prepareBirthday (birthDateStr, age) {
   if (birthDateStr != null && (typeof birthDateStr === 'string') && /^\d\d\d\d-\d\d-\d\d$/.test(birthDateStr)) {
     return birthDateStr
   }
-
   if (age && age >= 1 && age <= 99) {
     const year = new Date().getFullYear() - age
-    const month = last2Digits(utils.rand(1, 13))
-    const day = last2Digits(utils.rand(1, daysInMonth(year, month) + 1))
-
+    const month = utils.rand(1, new Date().getMonth() + 1)
+    let day
+    if (month !== new Date().getMonth() + 1) {
+      day = utils.rand(1, daysInMonth(year, month) + 1)
+    } else {
+      day = utils.rand(1, new Date().getDate())
+    }
     return `${year}-${month}-${day}`
   } else {
     const currentYear = new Date().getFullYear()
