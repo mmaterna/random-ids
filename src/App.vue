@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app :style="{background: $vuetify.theme.themes[theme].background}">
     <v-app-bar
       app
       color="primary"
@@ -31,6 +31,10 @@
           Generuj wszystkie
         </v-btn>
       </v-col>
+      ☀️<v-switch
+        v-model="$vuetify.theme.dark"
+        hide-details
+      />🌙
     </v-app-bar>
 
     <v-content>
@@ -52,6 +56,11 @@ export default {
   methods: {
     refreshAll () {
       this.$refs.dashboard.refreshAll()
+    }
+  },
+  computed: {
+    theme () {
+      return (this.$vuetify.theme.dark) ? 'dark' : 'light'
     }
   }
 
