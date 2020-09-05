@@ -52,17 +52,15 @@ export default {
   components: {
     Dashboard
   },
-
-  methods: {
-    refreshAll () {
-      this.$refs.dashboard.refreshAll()
-    }
-  },
   computed: {
     theme () {
       return (this.$vuetify.theme.dark) ? 'dark' : 'light'
     }
+  },
+  methods: {
+    refreshAll () {
+      this.$refs.dashboard.refreshAll()
+    }
   }
-
 }
 </script>
