@@ -1,10 +1,6 @@
 <template>
-  <v-app :style="{background: $vuetify.theme.themes[theme].background}">
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
+  <v-app :style="{ background: $vuetify.theme.themes[theme].background }">
+    <v-app-bar app color="primary" dark>
       <div class="d-flex align-center">
         <v-img
           alt="Logo"
@@ -20,8 +16,15 @@
         <h1>Generator danych testowych</h1>
       </v-toolbar-title>
 
-      <v-col style="text-align: end;">
-        <v-btn large rounded outlined color="accent" title="Generuj wszystkie" @click="refreshAll">
+      <v-col style="text-align: end">
+        <v-btn
+          large
+          rounded
+          outlined
+          color="accent"
+          title="Generuj wszystkie"
+          @click="refreshAll"
+        >
           <v-img
             alt="Generuj wszystkie"
             class="shrink mr-2"
@@ -31,10 +34,13 @@
           Generuj wszystkie
         </v-btn>
       </v-col>
-      ☀️<v-switch
+      <v-icon class="mr-2">
+        mdi-theme-light-dark
+      </v-icon>
+      <v-switch
         v-model="$vuetify.theme.dark"
         hide-details
-      />🌙
+      />
     </v-app-bar>
 
     <v-main>
@@ -54,7 +60,7 @@ export default {
   },
   computed: {
     theme () {
-      return (this.$vuetify.theme.dark) ? 'dark' : 'light'
+      return this.$vuetify.theme.dark ? 'dark' : 'light'
     }
   },
   methods: {
