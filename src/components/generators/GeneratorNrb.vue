@@ -100,10 +100,12 @@ export default {
       { text: 'mBank', value: 1140 },
       { text: 'Narodowy Bank Polski', value: 1010 },
       { text: 'Nest Bank', value: 1870 },
+      { text: 'Nest Bank 2', value: 2530 },
       { text: 'Pekao', value: 1240 },
       { text: 'PKO BP', value: 1020 },
       { text: 'Santander', value: 1090 },
-      { text: 'Societe Generale', value: 1840 }
+      { text: 'Societe Generale', value: 1840 },
+      { text: 'T-mobile Usługi Bankowe', value: 24901044 }
     ]
   }),
 

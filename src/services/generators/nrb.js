@@ -49,7 +49,11 @@ function modulo (dividend, divisor) {
 }
 
 function joinBankNumber (bankId) {
-  return bankId + '000' + bankIdControlNumber(bankId)
+  if (bankId.length === 8) {
+    return bankId + '000' + bankIdControlNumber(bankId)
+  } else {
+    return bankId
+  }
 }
 
 function bankIdControlNumber (bankId) {
