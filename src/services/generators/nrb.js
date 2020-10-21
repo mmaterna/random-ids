@@ -8,7 +8,7 @@ function nrb (countryCode, bankId) {
   const randomlyGeneratedPart = utils.rand(1000000000000000, 9999999999999999)
   bankId = joinBankNumber(bankId)
   const controlNumber = calculateProperControlNumber(countryCode, bankId, randomlyGeneratedPart)
-  return controlNumber + bankId + randomlyGeneratedPart
+  return controlNumber + '' + bankId + '' + randomlyGeneratedPart
 }
 
 function calculateProperControlNumber (countryCode, bankId, randomlyGeneratedPart) {
@@ -49,7 +49,7 @@ function modulo (dividend, divisor) {
 }
 
 function joinBankNumber (bankId) {
-  if (bankId.length === 8) {
+  if (bankId.toString().length !== 8) {
     return bankId + '000' + bankIdControlNumber(bankId)
   } else {
     return bankId
